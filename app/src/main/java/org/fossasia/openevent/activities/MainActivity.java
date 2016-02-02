@@ -242,6 +242,11 @@ public class MainActivity extends BaseActivity {
     private void doMenuAction(int menuItemId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         switch (menuItemId) {
+            case R.id.nav_schedule:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, new ScheduleFragment(), FRAGMENT_TAG).commit();
+                getSupportActionBar().setTitle(R.string.menu_schedule);
+                break;
             case R.id.nav_tracks:
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, new TracksFragment(), FRAGMENT_TAG).commit();
@@ -288,15 +293,9 @@ public class MainActivity extends BaseActivity {
                 });
                 break;
             case R.id.nav_about:
-                AlertDialog.Builder builder =
-                        new AlertDialog.Builder(this);
-                builder.setTitle(String.format("%1$s", getString(R.string.app_name)));
-                builder.setMessage(getResources().getText(R.string.about_text));
-                builder.setPositiveButton("OK", null);
-                builder.setIcon(R.mipmap.ic_launcher);
-                AlertDialog welcomeAlert = builder.create();
-                welcomeAlert.show();
-                ((TextView) welcomeAlert.findViewById(android.R.id.message)).setMovementMethod(LinkMovementMethod.getInstance());
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, new AboutFragment(), FRAGMENT_TAG).commit();
+                getSupportActionBar().setTitle(R.string.menu_about);
                 break;
         }
         currentMenuItemId = menuItemId;
