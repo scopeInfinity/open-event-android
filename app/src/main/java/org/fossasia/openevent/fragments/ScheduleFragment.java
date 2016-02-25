@@ -3,7 +3,6 @@ package org.fossasia.openevent.fragments;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -27,6 +26,7 @@ import org.fossasia.openevent.R;
 import org.fossasia.openevent.adapters.ScheduleSessionsListAdapter;
 import org.fossasia.openevent.data.Track;
 import org.fossasia.openevent.dbutils.DbSingleton;
+import org.fossasia.openevent.views.TitlePickerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
     private SearchView searchView;
 
     public static final String SCHEDULE_TAB_POSITION = "SCHEDULE_TAB_POSITION";
-    private TabLayout scheduleTabLayout;
+    private TitlePickerView scheduleTitlePicker;
     private ViewPager scheduleViewPager;
     private ScheduleViewPagerAdapter viewPagerAdapter;
 
@@ -61,11 +61,11 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_schedule, container, false);
-        scheduleTabLayout = (TabLayout) v.findViewById(R.id.schedule_tab_layout);
+        scheduleTitlePicker = (TitlePickerView) v.findViewById(R.id.schedule_title_picker);
         scheduleViewPager = (ViewPager) v.findViewById(R.id.schedule_view_pager);
         viewPagerAdapter = new ScheduleViewPagerAdapter(getChildFragmentManager());
         scheduleViewPager.setAdapter(viewPagerAdapter);
-        scheduleTabLayout.setupWithViewPager(scheduleViewPager);
+        scheduleTitlePicker.setupWithViewPager(scheduleViewPager);
         return v;
     }
 
@@ -81,7 +81,6 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
 
     private class ScheduleViewPagerAdapter extends FragmentPagerAdapter {
         private String[] titles;
-        private Fragment currentFragment;
         private SparseArray<Fragment> registeredFragments = new SparseArray<>();
 
         public ScheduleViewPagerAdapter(FragmentManager fm) {

@@ -18,4 +18,6 @@
     <color name="session_detail_speaker">#5B5E6B</color>
     <color name="more_background">#EFEFF4</color>
     <color name="about_item_pressed">#BFBFBF</color>
+
+    <color name="title_picker_bg">#F7F7F7</color>
 </resources>
