@@ -23,17 +23,17 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_about, container, false);
 
-        RelativeLayout aboutNotifMode = (RelativeLayout)v.findViewById(R.id.about_notification_mode);
-        LinearLayout aboutWebsite = (LinearLayout)v.findViewById(R.id.about_website);
-        LinearLayout aboutTwitter = (LinearLayout)v.findViewById(R.id.about_twitter);
-        LinearLayout aboutRate = (LinearLayout)v.findViewById(R.id.about_rate);
-        LinearLayout aboutSubscribe = (LinearLayout)v.findViewById(R.id.about_subscribe);
+        RelativeLayout aboutNotifMode = (RelativeLayout) v.findViewById(R.id.about_notification_mode);
+        LinearLayout aboutWebsite = (LinearLayout) v.findViewById(R.id.about_website);
+        LinearLayout aboutTwitter = (LinearLayout) v.findViewById(R.id.about_twitter);
+        LinearLayout aboutRate = (LinearLayout) v.findViewById(R.id.about_rate);
+        LinearLayout aboutSubscribe = (LinearLayout) v.findViewById(R.id.about_subscribe);
 
         //UX fixes
         aboutNotifMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckBox cbox = (CheckBox)v.findViewById(R.id.about_notification_mode_checkbox);
+                CheckBox cbox = (CheckBox) v.findViewById(R.id.about_notification_mode_checkbox);
                 cbox.setChecked(!cbox.isChecked());
                 //TODO: Notification mode toggle
             }

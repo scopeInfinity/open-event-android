@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,7 +17,6 @@ import android.widget.TextView;
 
 import org.fossasia.openevent.R;
 import org.fossasia.openevent.Receivers.NotificationAlarmReceiver;
-import org.fossasia.openevent.adapters.SpeakersListAdapter;
 import org.fossasia.openevent.data.Session;
 import org.fossasia.openevent.data.Speaker;
 import org.fossasia.openevent.dbutils.DbSingleton;
@@ -30,6 +28,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * User: MananWason
@@ -75,7 +75,7 @@ public class ScheduleSessionDetailActivity extends BaseActivity {
         try {
             dateTimeTextView.setText(String.format("%s - %s", humanSDF.format(startDate), timeSDF.format(endDate)));
         } catch (Exception e) {
-            e.printStackTrace();
+            Timber.e(e.getMessage());
             //TODO: Print something else
             dateTimeTextView.setText(e.getMessage());
         }

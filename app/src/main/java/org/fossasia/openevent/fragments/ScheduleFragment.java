@@ -37,11 +37,11 @@ import timber.log.Timber;
  * Created by duncanleo on 4/2/16.
  */
 public class ScheduleFragment extends Fragment implements SearchView.OnQueryTextListener {
-    final private String SEARCH = "searchText";
+    private final String SEARCH = "searchText";
     private String searchText = "";
     private SearchView searchView;
 
-    public final static String SCHEDULE_TAB_POSITION = "SCHEDULE_TAB_POSITION";
+    public static final String SCHEDULE_TAB_POSITION = "SCHEDULE_TAB_POSITION";
     private TabLayout scheduleTabLayout;
     private ViewPager scheduleViewPager;
     private ScheduleViewPagerAdapter viewPagerAdapter;
@@ -61,8 +61,8 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_schedule, container, false);
-        scheduleTabLayout = (TabLayout)v.findViewById(R.id.schedule_tab_layout);
-        scheduleViewPager = (ViewPager)v.findViewById(R.id.schedule_view_pager);
+        scheduleTabLayout = (TabLayout) v.findViewById(R.id.schedule_tab_layout);
+        scheduleViewPager = (ViewPager) v.findViewById(R.id.schedule_view_pager);
         viewPagerAdapter = new ScheduleViewPagerAdapter(getChildFragmentManager());
         scheduleViewPager.setAdapter(viewPagerAdapter);
         scheduleTabLayout.setupWithViewPager(scheduleViewPager);
@@ -100,7 +100,7 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            Fragment fragment = (Fragment)super.instantiateItem(container, position);
+            Fragment fragment = (Fragment) super.instantiateItem(container, position);
             registeredFragments.put(position, fragment);
             return fragment;
         }
@@ -187,7 +187,7 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
                     }
 
                     //Check/Un-check all the options
-                    private void setCheckedAll(boolean isChecked){
+                    private void setCheckedAll(boolean isChecked) {
                         for (int j = 0; j < listView.getCount(); j++) {
                             listView.setItemChecked(j, isChecked);
                         }
@@ -215,7 +215,7 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
 
     @Override
     public boolean onQueryTextChange(String query) {
-        SessionFragment sessionFragment = (SessionFragment)viewPagerAdapter.getRegisteredFragment(scheduleViewPager.getCurrentItem());
+        SessionFragment sessionFragment = (SessionFragment) viewPagerAdapter.getRegisteredFragment(scheduleViewPager.getCurrentItem());
         if (sessionFragment == null) {
             Timber.d("SessionFragment is null!");
             return true;

@@ -4,24 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.fossasia.openevent.OpenEventApp;
 import org.fossasia.openevent.R;
 import org.fossasia.openevent.activities.ScheduleSessionDetailActivity;
 import org.fossasia.openevent.adapters.ScheduleSessionsListAdapter;
-import org.fossasia.openevent.api.Urls;
 import org.fossasia.openevent.data.Session;
 import org.fossasia.openevent.dbutils.DbSingleton;
 import org.fossasia.openevent.utils.ISO8601Date;
@@ -70,7 +62,7 @@ public class SessionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_session, container, false);
-        sessionsRecyclerView = (RecyclerView)v.findViewById(R.id.sessionRecyclerView);
+        sessionsRecyclerView = (RecyclerView) v.findViewById(R.id.sessionRecyclerView);
         sessionsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         sessionsListAdapter = new ScheduleSessionsListAdapter(data, tabPos);
         sessionsRecyclerView.setAdapter(sessionsListAdapter);

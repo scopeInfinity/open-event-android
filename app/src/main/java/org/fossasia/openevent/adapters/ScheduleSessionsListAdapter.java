@@ -17,7 +17,6 @@ import org.fossasia.openevent.utils.ISO8601Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TimeZone;
 
 import timber.log.Timber;
 
@@ -101,7 +100,7 @@ public class ScheduleSessionsListAdapter extends BaseRVAdapter<Session, Schedule
             trackIndicator = itemView.findViewById(R.id.itemSessionTrackIndicator);
             sessionTitle = (TextView) itemView.findViewById(R.id.session_title);
             sessionTime = (TextView) itemView.findViewById(R.id.session_time);
-            sessionLocation = (TextView)itemView.findViewById(R.id.session_location);
+            sessionLocation = (TextView) itemView.findViewById(R.id.session_location);
         }
 
         @Override
