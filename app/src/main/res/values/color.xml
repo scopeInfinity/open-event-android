@@ -19,5 +19,7 @@
     <color name="more_background">#EFEFF4</color>
     <color name="about_item_pressed">#BFBFBF</color>
 
+    <color name="schedule_bookmark_bg">#F5A623</color>
+
     <color name="title_picker_bg">#F7F7F7</color>
 </resources>

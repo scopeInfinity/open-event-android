@@ -8,7 +8,7 @@
         android:id="@+id/schedule_title_picker"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_picker_height"/>
-    <android.support.v4.view.ViewPager
+    <org.fossasia.openevent.views.UnswipeableViewPager
         android:id="@+id/schedule_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

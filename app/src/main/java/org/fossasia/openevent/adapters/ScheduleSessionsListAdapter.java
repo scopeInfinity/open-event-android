@@ -69,7 +69,7 @@ public class ScheduleSessionsListAdapter extends BaseRVAdapter<Session, Schedule
     @Override
     public Viewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.item_session, parent, false);
+        View view = layoutInflater.inflate(R.layout.item_session_with_bookmark, parent, false);
         return new Viewholder(view);
     }
 

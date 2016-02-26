@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import org.fossasia.openevent.R;
 import org.fossasia.openevent.activities.ScheduleSessionDetailActivity;
@@ -19,6 +20,7 @@ import org.fossasia.openevent.dbutils.DbSingleton;
 import org.fossasia.openevent.utils.ISO8601Date;
 import org.fossasia.openevent.utils.IntentStrings;
 import org.fossasia.openevent.utils.RecyclerItemClickListener;
+import org.fossasia.openevent.utils.RecyclerItemInteractListener;
 import org.fossasia.openevent.utils.SimpleDividerItemDecoration;
 
 import java.util.Date;
@@ -68,14 +70,31 @@ public class SessionFragment extends Fragment {
         sessionsRecyclerView.setAdapter(sessionsListAdapter);
         sessionsRecyclerView.setItemAnimator(new DefaultItemAnimator());
         sessionsRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(getActivity().getResources()));
-        sessionsRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+//        sessionsRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                Intent intent = new Intent(getActivity(), ScheduleSessionDetailActivity.class);
+//                intent.putExtra(IntentStrings.SESSION, data.get(position).getTitle());
+//                startActivity(intent);
+//            }
+//        }));
+        sessionsRecyclerView.addOnItemTouchListener(new RecyclerItemInteractListener(getActivity(), new RecyclerItemInteractListener.OnItemInteractListener() {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), ScheduleSessionDetailActivity.class);
                 intent.putExtra(IntentStrings.SESSION, data.get(position).getTitle());
                 startActivity(intent);
             }
-        }));
+
+            @Override
+            public void onOptionsViewOpened(View optionsView, int position) {
+                Session session = data.get(position);
+                ImageView image = (ImageView) optionsView.findViewById(R.id.schedule_bookmark_image);
+                image.setImageResource(DbSingleton.getInstance().isBookmarked(session.getId()) ? R.drawable.ic_bookmark_white_24dp : R.drawable.ic_bookmark_outline_white_24dp);
+
+                //TODO: Logic to either bookmark/un-bookmark this session
+            }
+        }, R.id.item_session_bookmark_view));
         return v;
     }
 
