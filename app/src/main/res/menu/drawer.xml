@@ -3,12 +3,12 @@
         <!--TODO: Add schedule icon-->
         <item
             android:id="@+id/nav_schedule"
-            android:icon="@drawable/facebook"
+            android:icon="@drawable/ic_event_grey600_24dp"
             android:title="@string/menu_schedule"/>
         <!--TODO: Add favourite icon-->
         <item
             android:id="@+id/nav_favourites"
-            android:icon="@drawable/facebook"
+            android:icon="@drawable/ic_star_grey"
             android:title="@string/menu_favourites"/>
         <item
             android:id="@+id/nav_tracks"
