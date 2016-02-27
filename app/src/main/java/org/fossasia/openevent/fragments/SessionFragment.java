@@ -36,6 +36,7 @@ public class SessionFragment extends Fragment {
     //TODO: Set to the actual first day of the event
     public static final long FIRST_DAY_MILLIS = new GregorianCalendar(2015, 4, 5).getTime().getTime();
 
+    private View emptyState;
     private RecyclerView sessionsRecyclerView;
     private ScheduleSessionsListAdapter sessionsListAdapter;
     private List<Session> data = new ArrayList<>();
@@ -52,8 +53,6 @@ public class SessionFragment extends Fragment {
         if (getArguments() != null) {
             showBookmarkedOnly = getArguments().getBoolean(ScheduleFragment.SHOW_BOOKMARKED_ONLY, false);
         }
-
-        loadData();
     }
 
     /**
@@ -75,12 +74,15 @@ public class SessionFragment extends Fragment {
                 sessionIterator.remove();
             }
         }
+
+        emptyState.setVisibility(data.size() == 0 ? View.VISIBLE : View.GONE);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_session, container, false);
+        emptyState = v.findViewById(R.id.fragment_session_empty_state);
         sessionsRecyclerView = (RecyclerView) v.findViewById(R.id.sessionRecyclerView);
         sessionsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         sessionsListAdapter = new ScheduleSessionsListAdapter(data, tabPos);
@@ -112,6 +114,8 @@ public class SessionFragment extends Fragment {
                 //TODO: Logic to either bookmark/un-bookmark this session
             }
         }, R.id.item_session_bookmark_view));
+
+        loadData();
         return v;
     }
 
