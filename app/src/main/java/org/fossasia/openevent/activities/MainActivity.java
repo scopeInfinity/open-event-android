@@ -11,6 +11,7 @@ import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -246,6 +247,15 @@ public class MainActivity extends BaseActivity {
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, new ScheduleFragment(), FRAGMENT_TAG).commit();
                 getSupportActionBar().setTitle(R.string.menu_schedule);
+                break;
+            case R.id.nav_favourites:
+                Fragment fragment = new ScheduleFragment();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(ScheduleFragment.SHOW_BOOKMARKED_ONLY, true);
+                fragment.setArguments(bundle);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, fragment, FRAGMENT_TAG).commit();
+                getSupportActionBar().setTitle(R.string.menu_favourites);
                 break;
             case R.id.nav_tracks:
                 fragmentManager.beginTransaction()

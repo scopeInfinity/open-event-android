@@ -1,10 +1,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-        <!--TODO: Add schedule icon and string constant-->
+        <!--TODO: Add schedule icon-->
         <item
             android:id="@+id/nav_schedule"
             android:icon="@drawable/facebook"
             android:title="@string/menu_schedule"/>
+        <!--TODO: Add favourite icon-->
+        <item
+            android:id="@+id/nav_favourites"
+            android:icon="@drawable/facebook"
+            android:title="@string/menu_favourites"/>
         <item
             android:id="@+id/nav_tracks"
             android:checked="true"

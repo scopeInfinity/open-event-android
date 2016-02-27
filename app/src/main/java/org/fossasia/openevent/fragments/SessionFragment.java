@@ -19,10 +19,10 @@ import org.fossasia.openevent.data.Session;
 import org.fossasia.openevent.dbutils.DbSingleton;
 import org.fossasia.openevent.utils.ISO8601Date;
 import org.fossasia.openevent.utils.IntentStrings;
-import org.fossasia.openevent.utils.RecyclerItemClickListener;
 import org.fossasia.openevent.utils.RecyclerItemInteractListener;
 import org.fossasia.openevent.utils.SimpleDividerItemDecoration;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -38,15 +38,30 @@ public class SessionFragment extends Fragment {
 
     private RecyclerView sessionsRecyclerView;
     private ScheduleSessionsListAdapter sessionsListAdapter;
-    private List<Session> data;
+    private List<Session> data = new ArrayList<>();
     private int tabPos;
+    private boolean showBookmarkedOnly;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         tabPos = getArguments().getInt(ScheduleFragment.SCHEDULE_TAB_POSITION);
-        data = DbSingleton.getInstance().getSessionList();
+
+
+        if (getArguments() != null) {
+            showBookmarkedOnly = getArguments().getBoolean(ScheduleFragment.SHOW_BOOKMARKED_ONLY, false);
+        }
+
+        loadData();
+    }
+
+    /**
+     * Load data for display from database
+     */
+    private void loadData() {
+        data.clear();
+        data.addAll(DbSingleton.getInstance().getSessionList());
 
         //TODO: Use database to filter
         Iterator<Session> sessionIterator = data.iterator();
@@ -55,6 +70,8 @@ public class SessionFragment extends Fragment {
             Date d = ISO8601Date.getDateObject(s.getStartTime());
             long diff = d.getTime() - FIRST_DAY_MILLIS;
             if (TimeUnit.MILLISECONDS.toDays(diff) != tabPos) {
+                sessionIterator.remove();
+            } else if (showBookmarkedOnly && !DbSingleton.getInstance().isBookmarked(s.getId())) {
                 sessionIterator.remove();
             }
         }
@@ -96,6 +113,14 @@ public class SessionFragment extends Fragment {
             }
         }, R.id.item_session_bookmark_view));
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Refresh the list
+        loadData();
+        sessionsListAdapter.notifyDataSetChanged();
     }
 
     public ScheduleSessionsListAdapter getSessionsListAdapter() {

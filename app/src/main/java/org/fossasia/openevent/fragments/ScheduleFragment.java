@@ -40,8 +40,9 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
     private final String SEARCH = "searchText";
     private String searchText = "";
     private SearchView searchView;
+    private boolean showBookmarkedOnly;
 
-    public static final String SCHEDULE_TAB_POSITION = "SCHEDULE_TAB_POSITION";
+    public static final String SCHEDULE_TAB_POSITION = "SCHEDULE_TAB_POSITION", SHOW_BOOKMARKED_ONLY = "SHOW_BOOKMARKED_ONLY";
     private TitlePickerView scheduleTitlePicker;
     private ViewPager scheduleViewPager;
     private ScheduleViewPagerAdapter viewPagerAdapter;
@@ -54,6 +55,9 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
 
         if (savedInstanceState != null && savedInstanceState.getString(SEARCH) != null) {
             searchText = savedInstanceState.getString(SEARCH);
+        }
+        if (getArguments() != null) {
+            showBookmarkedOnly = getArguments().getBoolean(SHOW_BOOKMARKED_ONLY, false);
         }
     }
 
@@ -93,6 +97,7 @@ public class ScheduleFragment extends Fragment implements SearchView.OnQueryText
             Fragment fragment = new SessionFragment();
             Bundle bundle = new Bundle();
             bundle.putInt(SCHEDULE_TAB_POSITION, position);
+            bundle.putBoolean(SHOW_BOOKMARKED_ONLY, showBookmarkedOnly);
             fragment.setArguments(bundle);
             return fragment;
         }
