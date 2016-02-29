@@ -27,7 +27,7 @@ import java.util.List;
  * Date: 8/18/2015
  */
 public class LocationActivtiy extends BaseActivity implements SearchView.OnQueryTextListener {
-    final private String SEARCH = "searchText";
+    private static final String SEARCH = "searchText";
 
     SessionsListAdapter sessionsListAdapter;
 

@@ -35,8 +35,22 @@ import org.fossasia.openevent.OpenEventApp;
 import org.fossasia.openevent.R;
 import org.fossasia.openevent.dbutils.DataDownloadManager;
 import org.fossasia.openevent.dbutils.DbSingleton;
-import org.fossasia.openevent.events.*;
-import org.fossasia.openevent.fragments.*;
+import org.fossasia.openevent.events.CounterEvent;
+import org.fossasia.openevent.events.DataDownloadEvent;
+import org.fossasia.openevent.events.EventDownloadEvent;
+import org.fossasia.openevent.events.MicrolocationDownloadEvent;
+import org.fossasia.openevent.events.NoInternetEvent;
+import org.fossasia.openevent.events.RefreshUiEvent;
+import org.fossasia.openevent.events.SessionDownloadEvent;
+import org.fossasia.openevent.events.ShowNetworkDialogEvent;
+import org.fossasia.openevent.events.SpeakerDownloadEvent;
+import org.fossasia.openevent.events.SponsorDownloadEvent;
+import org.fossasia.openevent.events.TracksDownloadEvent;
+import org.fossasia.openevent.fragments.BookmarksFragment;
+import org.fossasia.openevent.fragments.LocationsFragment;
+import org.fossasia.openevent.fragments.SpeakerFragment;
+import org.fossasia.openevent.fragments.SponsorsFragment;
+import org.fossasia.openevent.fragments.TracksFragment;
 import org.fossasia.openevent.utils.SmoothActionBarDrawerToggle;
 import org.fossasia.openevent.widget.DialogFactory;
 
@@ -52,17 +66,17 @@ public class MainActivity extends BaseActivity {
 
     private static final String COUNTER_TAG = "Donecounter";
 
-    private final static String STATE_FRAGMENT = "stateFragment";
+    private static final String STATE_FRAGMENT = "stateFragment";
 
     private static final String NAV_ITEM = "navItem";
 
     private static final String BOOKMARK = "bookmarks";
 
-    private final String FRAGMENT_TAG = "FTAG";
+    private static final String FRAGMENT_TAG = "FTAG";
 
-    public String errorType;
+    private String errorType;
 
-    public String errorDesc;
+    private String errorDesc;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -435,43 +449,43 @@ public class MainActivity extends BaseActivity {
     }
 
     @Subscribe
-    public void ErrorHandlerEvent(RetrofitError cause) {
+    public void errorHandlerEvent(RetrofitError cause) {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netinfo = connMgr.getActiveNetworkInfo();
         if (!(netinfo != null && netinfo.isConnected())) {
             OpenEventApp.postEventOnUIThread(new ShowNetworkDialogEvent());
         } else {
             switch (cause.getKind()) {
-                case CONVERSION: {
+                case CONVERSION:
                     Log.d(TYPE, "ConversionError");
                     errorType = "Conversion Error";
                     errorDesc = String.valueOf(cause.getCause());
                     break;
-                }
-                case HTTP: {
+
+                case HTTP:
                     Log.d(TYPE, "HTTPError");
                     errorType = "HTTP Error";
                     errorDesc = String.valueOf(cause.getResponse().getStatus());
                     Log.d(ERROR_CODE, String.valueOf(cause.getResponse().getStatus()));
                     break;
-                }
-                case UNEXPECTED: {
+
+                case UNEXPECTED:
                     Log.d(TYPE, "UnexpectedError");
                     errorType = "Unexpected Error";
                     errorDesc = String.valueOf(cause.getCause());
                     break;
-                }
-                case NETWORK: {
+
+                case NETWORK:
                     Log.d(TYPE, "NetworkError");
                     errorType = "Network Error";
                     errorDesc = String.valueOf(cause.getCause());
                     break;
-                }
-                default: {
+
+                default:
                     Log.d(TYPE, "Other Error");
                     errorType = "Other Error";
                     errorDesc = String.valueOf(cause.getCause());
-                }
+
             }
             showErrorDialog(errorType, errorDesc);
         }

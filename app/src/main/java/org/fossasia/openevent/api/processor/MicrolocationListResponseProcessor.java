@@ -30,7 +30,6 @@ public class MicrolocationListResponseProcessor implements Callback<Microlocatio
             @Override
             public void run() {
                 for (Microlocation microlocation : microlocationResponseList.microlocations)
-
                 {
                     String query = microlocation.generateSql();
                     queries.add(query);

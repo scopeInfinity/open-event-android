@@ -30,9 +30,9 @@ import java.util.List;
  * Created by MananWason on 30-06-2015.
  */
 public class SpeakersActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
-    final private String SEARCH = "searchText";
+    private static final String SEARCH = "searchText";
 
-    SessionsListAdapter sessionsListAdapter;
+    private SessionsListAdapter sessionsListAdapter;
 
     private String searchText = "";
 
@@ -67,25 +67,25 @@ public class SpeakersActivity extends AppCompatActivity implements SearchView.On
 
         final SpeakerIntent speakerIntent = new SpeakerIntent(selectedSpeaker);
 
-        if(selectedSpeaker.getLinkedin() == null || selectedSpeaker.getLinkedin().isEmpty()) {
+        if (selectedSpeaker.getLinkedin() == null || selectedSpeaker.getLinkedin().isEmpty()) {
             linkedin.setVisibility(View.GONE);
         }
         else {
             speakerIntent.clickedImage(linkedin);
         }
-        if(selectedSpeaker.getTwitter() == null || selectedSpeaker.getTwitter().isEmpty()) {
+        if (selectedSpeaker.getTwitter() == null || selectedSpeaker.getTwitter().isEmpty()) {
             twitter.setVisibility(View.GONE);
         }
         else {
             speakerIntent.clickedImage(twitter);
         }
-        if(selectedSpeaker.getGithub() == null || selectedSpeaker.getGithub().isEmpty()) {
+        if (selectedSpeaker.getGithub() == null || selectedSpeaker.getGithub().isEmpty()) {
             github.setVisibility(View.GONE);
         }
         else {
             speakerIntent.clickedImage(github);
         }
-        if(selectedSpeaker.getFacebook() == null || selectedSpeaker.getFacebook().isEmpty()) {
+        if (selectedSpeaker.getFacebook() == null || selectedSpeaker.getFacebook().isEmpty()) {
             fb.setVisibility(View.GONE);
         }
         else {
