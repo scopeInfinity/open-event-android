@@ -7,7 +7,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,12 +20,15 @@ import org.fossasia.openevent.utils.IntentStrings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import timber.log.Timber;
 
 /**
  * User: MananWason
  * Date: 8/18/2015
  */
-public class LocationActivtiy extends BaseActivity implements SearchView.OnQueryTextListener {
+public class LocationActivity extends BaseActivity implements SearchView.OnQueryTextListener {
     private static final String SEARCH = "searchText";
 
     SessionsListAdapter sessionsListAdapter;
@@ -123,7 +125,7 @@ public class LocationActivtiy extends BaseActivity implements SearchView.OnQuery
 
         mSessions = dbSingleton.getSessionbyLocationName(location);
         final List<Session> filteredModelList = filter(mSessions, query);
-        Log.d("xyz", mSessions.size() + " " + filteredModelList.size());
+        Timber.tag("xyz").d(mSessions.size() + " " + filteredModelList.size());
 
         sessionsListAdapter.animateTo(filteredModelList);
         sessionRecyclerView.scrollToPosition(0);
@@ -133,11 +135,11 @@ public class LocationActivtiy extends BaseActivity implements SearchView.OnQuery
     }
 
     private List<Session> filter(List<Session> sessions, String query) {
-        query = query.toLowerCase();
+        query = query.toLowerCase(Locale.getDefault());
 
         final List<Session> filteredTracksList = new ArrayList<>();
         for (Session session : sessions) {
-            final String text = session.getTitle().toLowerCase();
+            final String text = session.getTitle().toLowerCase(Locale.getDefault());
             if (text.contains(query)) {
                 filteredTracksList.add(session);
             }
